@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "vm-16-bits",
+      "name": "ep01",
       "devDependencies": {
         "@types/bun": "latest",
       },
