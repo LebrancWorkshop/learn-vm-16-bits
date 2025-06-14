@@ -1,3 +1,5 @@
+import { ErrorLog } from "~/logs";
+
 type Unit = "BYTE" | "KB" | "MB" | "GB" | "TB";
 
 export const BYTESIZE = (size: number, unit: Unit): number => {
@@ -13,6 +15,6 @@ export const BYTESIZE = (size: number, unit: Unit): number => {
     case "TB":
       return size * (2**40);
     default:
-      throw new Error(`[ERROR] Size is cannot be an invalid unit.`);
+      throw new Error(`[ERROR] ${ErrorLog.SIZE_UNIT_NOT_VALID}`);
   }
 };
