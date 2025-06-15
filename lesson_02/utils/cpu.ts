@@ -2,7 +2,7 @@ import { Memory } from "./memory";
 import { REGISTERS, type Register } from "./register";
 import { ErrorLog } from "~/logs";
 
-import { Instruction } from "./instruction";
+import { Instruction } from "./instruction.enum";
 
 export class CPU {
 
@@ -54,13 +54,28 @@ export class CPU {
 
   execute(instruction: Instruction) {
     switch(instruction) {
-      case Instruction.MOV_LIT_R1:
-        const literal_01 = this.fetch16();
-        this.setRegister("r1", literal_01);
+      case Instruction.MOV_LIT_REG:
+        const literal = this.fetch16();
+        const registerIndex = this.fetch();
+        this.registers.setUint16(registerIndex, literal);
         return;
-      case Instruction.MOV_LIT_R2:
-        const literal_02 = this.fetch16();
-        this.setRegister("r2", literal_02);
+      case Instruction.MOV_REG_REG:
+        const registerFromIndex_MOV_REG_REG = this.fetch();
+        const registerToIndex_MOV_REG_REG = this.fetch();
+        const value_MOV_REG_REG = this.registers.getUint16(registerFromIndex_MOV_REG_REG);
+        this.registers.setUint16(registerToIndex_MOV_REG_REG, value_MOV_REG_REG);
+        return;
+      case Instruction.MOV_REG_MEM:
+        const registerFromIndex_MOV_REG_MEM = this.fetch();
+        const memoryAddress_MOV_REG_MEM = this.fetch16();
+        const value_MOV_REG_MEM = this.registers.getUint16(registerFromIndex_MOV_REG_MEM);
+        this.memory.setUint16(memoryAddress_MOV_REG_MEM, value_MOV_REG_MEM);
+        return;
+      case Instruction.MOV_MEM_REG:
+        const memoryAddress_MOV_MEM_REG = this.fetch16();
+        const registerToIndex_MOV_MEM_REG = this.fetch();
+        const value_MOV_MEM_REG = this.memory.getUint16(memoryAddress_MOV_MEM_REG);
+        this.registers.setUint16(registerToIndex_MOV_MEM_REG, value_MOV_MEM_REG);
         return;
       case Instruction.ADD_REG_REG:
         const register_01 = this.fetch();
@@ -69,6 +84,8 @@ export class CPU {
         const register_02_value = this.registers.getUint16(register_02);
         const result = register_01_value + register_02_value;
         this.setRegister("acc", result);
+        return;
+      case Instruction.JMP_NOT_EQ:
         return;
       default:
         return;
