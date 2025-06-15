@@ -1,4 +1,4 @@
-# Lesson 01's Note: Basic VM Structure
+# Lesson 02's Note: Memory Access and Branching
 
 ## Takeaways
 
