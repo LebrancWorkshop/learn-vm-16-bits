@@ -86,6 +86,12 @@ export class CPU {
         this.setRegister("acc", result);
         return;
       case Instruction.JMP_NOT_EQ:
+        const value = this.fetch16();
+        const address = this.fetch16();
+
+        if(value !== this.getRegister("acc")) {
+          this.setRegister("ip", address);
+        }
         return;
       default:
         return;
