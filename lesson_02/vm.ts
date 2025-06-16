@@ -16,13 +16,15 @@ function vm() {
 
   const writeableRAM = new Uint8Array(memory.buffer);
   const assemblers: (number | Instruction)[] = [
-    Instruction.MOV_LIT_R1,
+    Instruction.MOV_LIT_REG,
     0x00,
     0x01, // 0x0001
+    R1,
 
-    Instruction.MOV_LIT_R2,
+    Instruction.MOV_LIT_REG,
     0x00,
     0x09, // 0x0009
+    R2,
 
     Instruction.ADD_REG_REG,
     R1,
@@ -33,6 +35,7 @@ function vm() {
     writeableRAM[index] = assemble;
   })
 
+  cpu.viewMemory(0x0000);
   cpu.debug();
 
   cpu.step();
