@@ -104,4 +104,12 @@ export class CPU {
     console.log(`=====================`);
   }
 
+  viewMemory(address: number) {
+    const nextEightBytes = Array.from({length: 8}, (_, index: number) => this.memory.getUint8(address + index));
+    const nextEightBytesFormat = nextEightBytes
+      .map((byte: number) => `0x${byte.toString(16).padStart(4, "0")}`);
+
+    console.log(`Address (${address}): ${nextEightBytesFormat.join(' ')}`);
+  }
+
 };
