@@ -107,9 +107,9 @@ export class CPU {
   viewMemory(address: number) {
     const nextEightBytes = Array.from({length: 8}, (_, index: number) => this.memory.getUint8(address + index));
     const nextEightBytesFormat = nextEightBytes
-      .map((byte: number) => `0x${byte.toString(16).padStart(4, "0")}`);
+      .map((byte: number) => `0x${byte.toString(16).padStart(2, "0")}`);
 
-    console.log(`Address (${address}): ${nextEightBytesFormat.join(' ')}`);
+    console.log(`Address (0x${address.toString(16).padStart(4, "0")}): ${nextEightBytesFormat.join(' ')}`);
   }
 
 };
