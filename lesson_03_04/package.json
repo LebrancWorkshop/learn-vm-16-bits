@@ -1,0 +1,13 @@
+{
+  "name": "lesson_01",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
