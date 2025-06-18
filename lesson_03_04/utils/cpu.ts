@@ -93,6 +93,18 @@ export class CPU {
           this.setRegister("ip", address);
         }
         return;
+      case Instruction.PSH_LIT:
+        return;
+      case Instruction.PSH_REG:
+        return;
+      case Instruction.POP:
+        return;
+      case Instruction.CAL_LIT:
+        return;
+      case Instruction.CAL_REG:
+        return;
+      case Instruction.RET:
+        return;
       default:
         return;
     }
