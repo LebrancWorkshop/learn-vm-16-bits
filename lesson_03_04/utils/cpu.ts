@@ -37,6 +37,22 @@ export class CPU {
     this.registers.setUint16(this.registerMap.get(registerName) as number, value);
   }
 
+  // Stack Implementation
+  push(value: number) {
+    const stackPointer = this.getRegister("sp");
+    this.memory.setUint16(stackPointer, value);
+    const nextStackPointer = stackPointer - 2;
+    this.setRegister("sp", nextStackPointer);
+  }
+
+  pop() {
+    const stackPointer = this.getRegister("sp");
+    const popPointer = stackPointer + 2;
+    this.setRegister("sp", popPointer);
+    const returnValue = this.memory.getUint16(popPointer);
+    return returnValue;
+  }
+
   // CPU Process
   fetch() {
     const nextInstructionAddress = this.getRegister("ip");
