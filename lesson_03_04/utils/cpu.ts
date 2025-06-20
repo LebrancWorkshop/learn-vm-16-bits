@@ -46,14 +46,32 @@ export class CPU {
     this.memory.setUint16(stackPointer, value);
     const nextStackPointer = stackPointer - 2;
     this.setRegister("sp", nextStackPointer);
+    this.stackFrameSize += 2;
   }
 
   pop() {
     const stackPointer = this.getRegister("sp");
     const popPointer = stackPointer + 2;
     this.setRegister("sp", popPointer);
+    this.stackFrameSize -= 2;
     const returnValue = this.memory.getUint16(popPointer);
     return returnValue;
+  }
+
+  pushState() {
+    this.push(this.getRegister("r1"));
+    this.push(this.getRegister("r2"));
+    this.push(this.getRegister("r3"));
+    this.push(this.getRegister("r4"));
+    this.push(this.getRegister("r5"));
+    this.push(this.getRegister("r6"));
+    this.push(this.getRegister("r7"));
+    this.push(this.getRegister("ip"));
+    this.push(this.stackFrameSize + 2);
+
+    this.setRegister("fp", this.getRegister("sp"));
+
+    this.stackFrameSize = 0; // Clear Stack Frame Size.
   }
 
   // CPU Process
