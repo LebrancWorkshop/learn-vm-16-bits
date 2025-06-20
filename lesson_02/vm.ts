@@ -36,7 +36,13 @@ function vm() {
     Instruction.MOV_REG_MEM,
     ACC,
     0x01,
-    0x00 // Memory Address: 0x0100
+    0x00, // Memory Address: 0x0100
+
+    Instruction.JMP_NOT_EQ,
+    0x00,
+    0x03, // Value: 0x0000
+    0x00,
+    0x00 // Memory Address that set to Instruction Pointer (IP)
   ];
 
   assemblers.map((assemble: number, index: number) => {
