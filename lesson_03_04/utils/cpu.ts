@@ -9,6 +9,7 @@ export class CPU {
   memory: DataView;
   registers: DataView;
   registerMap: Map<Register, number>;
+  stackFrameSize: number;
 
   constructor(memory: DataView) {
     this.memory = memory;
@@ -18,6 +19,8 @@ export class CPU {
     REGISTERS.map((register: Register, index: number) => {
       this.registerMap.set(register, index * 2);
     })
+
+    this.stackFrameSize = 0;
   }
 
   // Set & Get Register Value.
