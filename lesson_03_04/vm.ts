@@ -5,6 +5,7 @@ import {
 } from "~/utils";
 
 import { CPU_SETTING } from "~/constants";
+import { readLine } from "./helpers/readline";
 
 function vm() {
   const memorySize = CPU_SETTING.memorySize;
@@ -35,17 +36,11 @@ function vm() {
     writeableRAM[index] = assemble;
   })
 
-  cpu.viewMemory(0x0000);
-  cpu.debug();
-
-  cpu.step();
-  cpu.debug();
-
-  cpu.step();
-  cpu.debug();
-
-  cpu.step();
-  cpu.debug();
+  readLine.on("line", () => {
+    cpu.viewMemory(cpu.getRegister("ip"));
+    cpu.debug();
+    cpu.step();
+  })
 };
 
 export default vm;
