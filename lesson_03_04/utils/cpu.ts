@@ -155,16 +155,24 @@ export class CPU {
         }
         return;
       case Instruction.PSH_LIT:
+        const literal_PSH_LIT = this.fetch16();
+        this.push(literal_PSH_LIT);
         return;
       case Instruction.PSH_REG:
+        const registerIndex_PSH_LIT = this.fetch();
+        this.push(registerIndex_PSH_LIT);
         return;
-      case Instruction.POP:
+      case Instruction.POP: // Pop and get the value, and set to assigned register.
+        const registerIndex_POP = this.fetch();
+        const returnValue_POP = this.pop();
+        this.registers.setUint16(registerIndex_POP, returnValue_POP);
         return;
       case Instruction.CAL_LIT:
         return;
       case Instruction.CAL_REG:
         return;
       case Instruction.RET:
+        this.popState();
         return;
       default:
         return;
