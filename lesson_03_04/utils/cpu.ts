@@ -74,6 +74,30 @@ export class CPU {
     this.stackFrameSize = 0; // Clear Stack Frame Size.
   }
 
+  popState() {
+    const framePointerAddress = this.getRegister("fp");
+    this.setRegister("sp", framePointerAddress);
+
+    this.stackFrameSize = this.pop();
+
+    this.setRegister("ip", this.pop());
+    this.setRegister("r8", this.pop());
+    this.setRegister("r7", this.pop());
+    this.setRegister("r6", this.pop());
+    this.setRegister("r5", this.pop());
+    this.setRegister("r4", this.pop());
+    this.setRegister("r3", this.pop());
+    this.setRegister("r2", this.pop());
+    this.setRegister("r1", this.pop());
+
+    const nArgs = this.pop();
+    for(let i = 1; i <= nArgs; i++) {
+      this.pop();
+    }
+
+    this.setRegister("fp", framePointerAddress + this.stackFrameSize);
+  }
+
   // CPU Process
   fetch() {
     const nextInstructionAddress = this.getRegister("ip");
