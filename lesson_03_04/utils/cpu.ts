@@ -168,8 +168,15 @@ export class CPU {
         this.registers.setUint16(registerIndex_POP, returnValue_POP);
         return;
       case Instruction.CAL_LIT:
+        const literalAddress_CAL_LIT = this.fetch16();
+        this.pushState();
+        this.setRegister("ip", literalAddress_CAL_LIT);
         return;
       case Instruction.CAL_REG:
+        const registerIndex_CAL_REG = this.fetch();
+        const address_CAL_REG = this.registers.getUint16(registerIndex_CAL_REG);
+        this.pushState();
+        this.setRegister("ip", address_CAL_REG);
         return;
       case Instruction.RET:
         this.popState();
